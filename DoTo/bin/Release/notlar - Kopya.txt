@@ -1,0 +1,5 @@
+$9/21/2021;Market Alışverişi;1 kilo domates
+2 demet maydonoz
+30'lu yumurta
+$4/11/2023;Lorem Ipsum;dolor sit amet, consectetur adipiscing elit.
+$7/26/2024;Lorem;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nec malesuada ex. Sed suscipit, massa vel placerat ultrices, sapien sapien maximus ante, ac consequat libero mi vel lectus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Donec venenatis vestibulum est, ac imperdiet nisi volutpat in. Duis sodales, turpis a dictum hendrerit, odio lectus aliquam quam, vitae feugiat purus mauris ac arcu. Nunc facilisis gravida commodo. Morbi vitae semper nibh. Donec ornare semper elit ac laoreet. Vestibulum et elit eu tellus suscipit auctor non non ante. Aliquam vel tellus eu odio dignissim posuere at id sapien. Ut rutrum, nisi nec tempor pharetra, elit orci vestibulum elit, ac rhoncus metus est in libero. Sed bibendum risus in sem ultricies mollis. Sed ac enim lacus. Quisque vel lacinia risus. Suspendisse potenti. Sed aliquet velit eget odio molestie, vel consectetur magna venenatis.

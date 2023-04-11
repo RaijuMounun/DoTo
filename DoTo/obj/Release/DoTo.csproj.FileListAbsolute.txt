@@ -1,0 +1,12 @@
+C:\Users\monvu\source\repos\DoTo\DoTo\bin\Release\DoTo.exe.config
+C:\Users\monvu\source\repos\DoTo\DoTo\bin\Release\DoTo.exe
+C:\Users\monvu\source\repos\DoTo\DoTo\bin\Release\DoTo.pdb
+C:\Users\monvu\source\repos\DoTo\DoTo\bin\Release\MaterialSkin.dll
+C:\Users\monvu\source\repos\DoTo\DoTo\obj\Release\DoTo.Form1.resources
+C:\Users\monvu\source\repos\DoTo\DoTo\obj\Release\DoTo.Properties.Resources.resources
+C:\Users\monvu\source\repos\DoTo\DoTo\obj\Release\DoTo.csproj.GenerateResource.cache
+C:\Users\monvu\source\repos\DoTo\DoTo\obj\Release\DoTo.csproj.CoreCompileInputs.cache
+C:\Users\monvu\source\repos\DoTo\DoTo\obj\Release\DoTo.csproj.CopyComplete
+C:\Users\monvu\source\repos\DoTo\DoTo\obj\Release\DoTo.exe
+C:\Users\monvu\source\repos\DoTo\DoTo\obj\Release\DoTo.pdb
+C:\Users\monvu\source\repos\DoTo\DoTo\obj\Release\DoTo.csproj.AssemblyReference.cache
