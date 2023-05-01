@@ -1,5 +1,4 @@
-﻿#region Using
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -11,7 +10,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using MaterialSkin;
 using MaterialSkin.Controls;
-#endregion
+
+// Yarı Türkçe yarı İngilizce kod için üsgünüm. Normalde İngilizce yazıyorum fakat okul projesi olunca ne yapacağımı pek kestiremedim
 
 namespace DoTo
 {
@@ -21,7 +21,6 @@ namespace DoTo
         public Form1()
         {
             InitializeComponent();
-
             TemaRengi(Primary.DeepPurple800, Primary.DeepPurple800, Primary.DeepPurple800, Accent.Indigo700, TextShade.WHITE);
             AppbarDuzenle();
         }
@@ -44,11 +43,21 @@ namespace DoTo
         private void AppbarDuzenle()
         {
             this.Text = "DoTo";
-            this.MinimumSize = new Size(760, 390);
+            this.MinimumSize = new Size(760, 390); 
         }
         #endregion
 
-        #region NotlariOkuListele
+        #region Bazı Düzenlemeler, Load
+        private void SomeArrangements()
+        {
+            dtp.Left = (controlPanel.Width - dtp.Width) / 2;
+            NotuSilBtn.Visible = NotuGoruntuleBtn.Visible = notuDuzenleBtn.Visible = false;
+            listView1.Font = new Font("LEMON MILK Light", 12);
+            NotuSilBtn.Parent = btnYeniNotEkle.Parent = notuDuzenleBtn.Parent = NotuGoruntuleBtn.Parent = controlPanel;
+        }
+        #endregion
+
+        #region Notları dosyadan oku ve uygulamada listele
         private void NotlariOkuListele()
         {            
             string dosyaYolu = "notlar.txt";
@@ -71,7 +80,6 @@ namespace DoTo
             foreach (string not in tamNot)
             {
                 string[] notBilgileri = not.Split(';');
-
                 
                 ListViewItem item = new ListViewItem();
                 item.Text = notBilgileri[1] + " | " + notBilgileri[0];
@@ -95,7 +103,7 @@ namespace DoTo
                 dosya = sr.ReadToEnd();
             }
 
-            // Seçilen item'ın tüm subitemlarını birleştirerek notu elde et
+            // Seçilen item'ın tüm subitemlarını birleştirerek notun dosyadaki halini elde et
             string secilenNot = "$" + listView1.SelectedItems[0].SubItems[3].Text + ";"
                                     + listView1.SelectedItems[0].SubItems[1].Text + ";"
                                     + listView1.SelectedItems[0].SubItems[2].Text;
@@ -114,40 +122,48 @@ namespace DoTo
         }
         #endregion
 
+        #region Form Oluştur
+        //Yeni not oluştururken ve notu düzenlerken yeni form açılması gerekiyor
+        private void FormOlustur(Form form, TextBox baslikTB, TextBox detayTB, Button kaydetBtn)
+        {
+            // Not başlığı için metin kutusu oluştur
+            Label lblBaslik = new Label();
+            lblBaslik.Text = "Başlık:";
+            lblBaslik.Location = new Point(10, 10);
+            form.Controls.Add(lblBaslik);
+
+            baslikTB.Location = new Point(10, 30);
+            form.Controls.Add(baslikTB);
+
+            // Not detayları için metin alanı oluştur
+            Label lblDetaylar = new Label();
+            lblDetaylar.Text = "Detaylar:";
+            lblDetaylar.Location = new Point(10, 60);
+            form.Controls.Add(lblDetaylar);
+
+            detayTB.Multiline = true;
+            detayTB.Size = new Size(200, 100);
+            detayTB.Location = new Point(10, 80);
+            form.Controls.Add(detayTB);
+
+            // Kaydet butonu oluştur
+            kaydetBtn.Text = "Kaydet";
+            kaydetBtn.Location = new Point(10, 190);
+            form.Controls.Add(kaydetBtn);
+        }
+        #endregion
+
         #region Yeni Not Ekle
         private void YeniNotEkle()
         {
             // Yeni bir form aç
             Form yeniNotForm = new Form();
             yeniNotForm.Text = "Yeni Not Ekle";
-
-            // Not başlığı için metin kutusu oluştur
-            Label lblBaslik = new Label();
-            lblBaslik.Text = "Başlık:";
-            lblBaslik.Location = new Point(10, 10);
-            yeniNotForm.Controls.Add(lblBaslik);
-
             TextBox txtBaslik = new TextBox();
-            txtBaslik.Location = new Point(10, 30);
-            yeniNotForm.Controls.Add(txtBaslik);
-
-            // Not detayları için metin alanı oluştur
-            Label lblDetaylar = new Label();
-            lblDetaylar.Text = "Detaylar:";
-            lblDetaylar.Location = new Point(10, 60);
-            yeniNotForm.Controls.Add(lblDetaylar);
-
             TextBox txtDetaylar = new TextBox();
-            txtDetaylar.Multiline = true;
-            txtDetaylar.Size = new Size(200, 100);
-            txtDetaylar.Location = new Point(10, 80);
-            yeniNotForm.Controls.Add(txtDetaylar);
-
-            // Kaydet butonu oluştur
             Button btnKaydet = new Button();
-            btnKaydet.Text = "Kaydet";
-            btnKaydet.Location = new Point(10, 190);
-            yeniNotForm.Controls.Add(btnKaydet);
+
+            FormOlustur(yeniNotForm, txtBaslik, txtDetaylar, btnKaydet);            
 
             // Kaydet butonuyla notu listview'e ekle
             btnKaydet.Click += (sender2, e2) =>
@@ -174,73 +190,12 @@ namespace DoTo
         }
         #endregion
 
-        //------------------------------------------------------------------------------------------
-
-        #region Form Load
-        private void Form1_Load(object sender, EventArgs e)
+        #region Notu Düzenle
+        private void NotuDuzenle()
         {
-            dtp.Left = (controlPanel.Width - dtp.Width) / 2;
-            NotlariOkuListele();
-            NotuSilBtn.Visible = NotuGoruntuleBtn.Visible = notuDuzenleBtn.Visible = false;
-            listView1.Font = new Font("LEMON MILK Light", 12);
-            NotuSilBtn.Parent = btnYeniNotEkle.Parent = notuDuzenleBtn.Parent = NotuGoruntuleBtn.Parent = controlPanel;
-            this.ForeColor = Color.Indigo;
-        }
-        #endregion
-
-        #region Form Resize
-        private void Form1_Resize(object sender, EventArgs e)
-        {
-            controlPanel.Width = todoPanel.Width / 3;
-            dtp.Left = (controlPanel.Width - dtp.Width) / 2;
-            listView1.Width = todoPanel.Width - controlPanel.Width;
-        }
-        #endregion
-
-        #region Listview item activate
-        private void listView1_ItemActivate_1(object sender, EventArgs e)
-        {
-            // Seçilen öğenin metnini al
-            string selectedText = listView1.SelectedItems[0].SubItems[2].Text;
-
-            // Mesaj kutusunda seçilen öğenin metnini göster
-            MessageBox.Show(selectedText);
-        }
-        #endregion
-
-        #region btnYeniNotEkle_Click
-        private void btnYeniNotEkle_Click(object sender, EventArgs e)
-        {
-            YeniNotEkle();
-        }
-        #endregion
-
-        #region NotuSilBtn_Click
-        private void NotuSilBtn_Click(object sender, EventArgs e)
-        {
-            NotuSil();
-        }        
-        #endregion
-
-        #region listView1_SelectedIndexChanged
-        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (listView1.SelectedItems.Count > 0)
-            {
-                NotuSilBtn.Visible = NotuGoruntuleBtn.Visible = notuDuzenleBtn.Visible = true;
-            }
-            else
-            {
-                NotuSilBtn.Visible = NotuGoruntuleBtn.Visible = notuDuzenleBtn.Visible = false;
-            }
-        }
-        #endregion
-
-        private void notuDuzenleBtn_Click(object sender, EventArgs e)
-        {            
             if (listView1.SelectedItems.Count == 1)
             {
-                
+                //Detaylar ve başlık değerlerini al
                 ListViewItem selectedItem = listView1.SelectedItems[0];
                 string detaylar = selectedItem.SubItems[2].Text;
                 string baslik = selectedItem.SubItems[1].Text;
@@ -248,44 +203,16 @@ namespace DoTo
                 // Yeni bir form aç
                 Form notuDuzenleForm = new Form();
                 notuDuzenleForm.Text = "Notu Düzenle";
-
-                // Not başlığı için metin kutusu oluştur
-                Label lblBaslik = new Label();
-                lblBaslik.Text = "Başlık:";
-                lblBaslik.Location = new Point(10, 10);
-                notuDuzenleForm.Controls.Add(lblBaslik);
-
                 TextBox txtBaslik = new TextBox();
-                txtBaslik.Text = baslik;
-                txtBaslik.Location = new Point(10, 30);
-                notuDuzenleForm.Controls.Add(txtBaslik);
-
-
-                // Not detayları için metin alanı oluştur
-                Label lblDetaylar = new Label();
-                lblDetaylar.Text = "Detaylar:";
-                lblDetaylar.Location = new Point(10, 60);
-                notuDuzenleForm.Controls.Add(lblDetaylar);
-
                 TextBox txtDetaylar = new TextBox();
-                txtDetaylar.Multiline = true;
-                txtDetaylar.Text = detaylar;
-                txtDetaylar.Size = new Size(200, 100);
-                txtDetaylar.Location = new Point(10, 80);
-                notuDuzenleForm.Controls.Add(txtDetaylar);
-
-
-
-                // Kaydet butonu oluştur
                 Button btnKaydet = new Button();
-                btnKaydet.Text = "Kaydet";
-                btnKaydet.Location = new Point(10, 190);
-                notuDuzenleForm.Controls.Add(btnKaydet);
 
-                // Kaydet butonuyla notu listview'e ekle
+                FormOlustur(notuDuzenleForm, txtBaslik, txtDetaylar, btnKaydet);
+
+                // Kaydet butonuyla notu listview'a ekle ve dosyaya kaydet
                 btnKaydet.Click += (sender2, e2) =>
                 {
-                    NotuSil();
+                    NotuSil();//Eski notu sil
                     DateTime txtTarih = dtp.Value;
                     ListViewItem item = new ListViewItem();
                     item.Text = txtBaslik.Text + " | " + dtp.Value.ToShortDateString();
@@ -304,36 +231,67 @@ namespace DoTo
                     notuDuzenleForm.Close(); // Formu kapat
                 };
 
-
-
-
-                //if (form.ShowDialog() == DialogResult.OK)
-                //{
-                //    selectedItem.SubItems[2].Text = form.textBox1.Text;
-                //    // Kayıt dosyasını güncelle
-                //    string[] lines = File.ReadAllLines("notlar.txt");
-                //    for (int i = 0; i < lines.Length; i++)
-                //    {
-                //        if (lines[i].StartsWith("$" + selectedItem.SubItems[0].Text))
-                //        {
-                //            lines[i] = "$" + selectedItem.SubItems[0].Text + ";" + selectedItem.SubItems[1].Text + ";" + selectedItem.SubItems[2].Text + ";" + selectedItem.SubItems[3].Text + ";";
-                //            break;
-                //        }
-                //    }
-                //    File.WriteAllLines("notlar.txt", lines);
-                //}
-
                 notuDuzenleForm.ShowDialog(); // Formu göster
             }
         }
+        #endregion
 
-        private void NotuGoruntuleBtn_Click(object sender, EventArgs e)
+        #region Notu Göster
+        private void NotuGoster()
         {
             // Seçilen öğenin metnini al
             string selectedText = listView1.SelectedItems[0].SubItems[2].Text;
 
-            // Mesaj kutusunda seçilen öğenin metnini göster
+            // Mesaj kutusunda göster
             MessageBox.Show(selectedText);
         }
+        #endregion
+
+        //------------------------------------------------------------------------------------------
+
+        #region Form Fonksiyonları
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            NotlariOkuListele();
+            SomeArrangements();
+        }
+
+        private void Form1_Resize(object sender, EventArgs e)
+        {
+            controlPanel.Width = todoPanel.Width / 3;
+            dtp.Left = (controlPanel.Width - dtp.Width) / 2;
+            listView1.Width = todoPanel.Width - controlPanel.Width;
+        }
+
+        private void listView1_ItemActivate_1(object sender, EventArgs e)
+        {
+            NotuGoster();
+        }
+
+        private void btnYeniNotEkle_Click(object sender, EventArgs e)
+        {
+            YeniNotEkle();
+        }
+
+        private void NotuSilBtn_Click(object sender, EventArgs e)
+        {
+            NotuSil();
+        }
+
+        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        {//Bir liste objesi seçiliyse bu tuşları görünür yap, değilse gizle
+            NotuSilBtn.Visible = NotuGoruntuleBtn.Visible = notuDuzenleBtn.Visible = (listView1.SelectedItems.Count > 0);
+        }
+
+        private void notuDuzenleBtn_Click(object sender, EventArgs e)
+        {
+            NotuDuzenle();
+        }
+
+        private void NotuGoruntuleBtn_Click(object sender, EventArgs e)
+        {
+            NotuGoster();
+        }
+        #endregion
     }
 }
