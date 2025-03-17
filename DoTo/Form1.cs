@@ -26,7 +26,7 @@ namespace DoTo
         }
         #endregion
 
-        //Helper Fonskiyonlar
+        //Helper Fonksiyonlar
         #region TemaRengi
         private void TemaRengi(Primary renk1, Primary renk2, Primary renk3, Accent accent, TextShade textShade)
         {
