@@ -11,7 +11,7 @@ using System.Windows.Forms;
 using MaterialSkin;
 using MaterialSkin.Controls;
 
-// Yarı Türkçe yarı İngilizce kod için üsgünüm. Normalde İngilizce yazıyorum fakat okul projesi olunca ne yapacağımı pek kestiremedim
+// Yarı Türkçe yarı İngilizce kod için üzgünüm. Normalde İngilizce yazıyorum fakat okul projesi olunca ne yapacağımı pek kestiremedim
 
 namespace DoTo
 {
